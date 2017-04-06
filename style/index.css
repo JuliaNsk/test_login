@@ -2,20 +2,14 @@
     font-family: "open sans";
     src: url("../fonts/OpenSans-Regular.ttf");
 }
+
 html, body {
     height: 100%;
     padding: 0;
     margin: 0;
     font-family: "open sans", sans-serif;
 }
-main {
-    /*display: flex;*/
-    /*flex-direction: row;*/
-    /*align-items: flex-start;*/
-    /*align-content: stretch;*/
-    /*flex-wrap: nowrap;*/
-    /*height: 100%;*/
-}
+
 
 .main-image {
     float: left;
@@ -24,6 +18,7 @@ main {
     display: block;
     width: 100%;
     flex-grow: 2;
+    position: relative;
     background-image: url("https://netigate.se/services/web/images/Kunden-30.jpg");
     background-position: center center;
     background-repeat: no-repeat;
@@ -31,17 +26,31 @@ main {
     background-color: #63a1de;
     background-blend-mode: multiply;
 }
+
+.main-image:before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background-image: radial-gradient(ellipse farthest-side at 100% 100%, rgba(209, 232, 255, 0.41) 5%, rgba(128, 153, 178, 0.35) 50%, rgba(11, 38, 66, 0.66) 110%);
+}
+
 .left-container {
     padding-right: 425px;
     height: 100%;
 }
+
 .headline {
     color: #ffffff;
     font-size: 4em;
     font-weight: normal;
 }
+
 .left-row {
     margin: 30% 11% 0;
+    z-index: 10;
+    position: relative;
 }
 
 .left-container-btn {
@@ -49,7 +58,6 @@ main {
     border-radius: 3px;
     color: #ffffff;
     display: inline-block;
-
     padding: 15px 50px;
     text-transform: uppercase;
     font-weight: bold;
@@ -59,12 +67,16 @@ main {
     margin: 0 2% 2% 0;
 }
 
+.left-container-btn-fill {
+    background-color: #ffffff;
+    color: #1795ca;
+}
+
 .left-container-btn:hover {
     color: #ffffff;
     background-color: #1795ca;
     border-color: #1795ca;
 }
-
 
 .right-container {
     width: 425px;
@@ -74,8 +86,9 @@ main {
     display: block;
     background-color: #ffffff;
     position: absolute;
-    right:0;
-    top:0;
+    right: 0;
+    top: 0;
+    z-index: 999;
 }
 
 .form {
@@ -97,17 +110,19 @@ input {
     font-size: 1em;
 }
 
-input:-moz-placeholder {
-    color: #cfced0;
-}
-
-input::-webkit-input-placeholder {
-    color: #cfced0;
-}
-
 input:focus {
     outline: none;
     border-bottom: 1px solid #63a1de;
+}
+
+input:focus + label,
+input:valid + label {
+    color: #63a1de;
+    animation: uplabel 0.2s ease-out;
+    -webkit-animation: uplabel 0.2s ease-out;
+    -moz-animation: uplabel 0.2s ease-out;
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
 }
 
 .submit {
@@ -117,6 +132,43 @@ input:focus {
     border: none;
     border-radius: 3px;
     color: #ffffff;
+}
+
+input + label {
+    height: 23px;
+    display: block;
+    margin-top: -25px;
+    text-align: left;
+    margin-left: 14px;
+    color: #cfced0;
+    position: relative;
+    cursor: text;
+}
+
+input + label > span {
+    position: absolute;
+    top: 0;
+
+}
+
+@keyframes uplabel {
+    from {
+        top: 0;
+    }
+
+    to {
+        top: -20px;
+    }
+}
+
+@-webkit-keyframes uplabel {
+    from {
+        top: 0;
+    }
+
+    to {
+        top: -20px;
+    }
 }
 
 .submit:hover {
@@ -153,40 +205,61 @@ button:hover, .forget-password:hover {
     text-decoration: none;
 }
 
+.error-message {
+    color: #ae1716;
+    font-size: 0.75em;
+    background: #ffcbcb;
+    padding: 5px 0;
+    border: 1px solid #ae1716;
+    border-radius: 3px;
+    display: none;
+}
+
+.form.error .error-message {
+    display:block;
+}
+
 @media (max-width: 768px) {
 
     .main-image {
         float: right;
     }
+
     .right-container {
-       top: 0;
+        top: 0;
         height: 100%;
     }
+
     .left-container {
         position: absolute;
         bottom: 0;
         padding-right: 0;
 
     }
+
     .left-container, .right-container {
         width: 100%;
         height: auto;
         position: static;
         padding-bottom: 50px;
     }
-    .main-image{
-                padding-bottom: 50px;
 
+    .main-image {
+        padding-bottom: 50px;
     }
+
     .form {
         margin: 7% auto 0;
     }
+
     .left-row {
         margin: 10% 11% 0;
     }
+
     .headline {
         font-size: 3em;
     }
+
     .left-container-btn {
         width: 100%;
     }
